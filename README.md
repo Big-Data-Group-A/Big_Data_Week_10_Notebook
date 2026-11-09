@@ -13,16 +13,14 @@ Train · Evaluate · Predict · Publish
 | File | Purpose |
 |------|---------|
 | `Lab 5.pdf` | The lab instructions (all exercises, marking scheme, checklist) |
-| `week10_students.xlsx` | The dataset: 150 clean students |
+| `week10_students.csv` | The dataset: 150 clean students (use this one) |
+| `week10_students.xlsx` | Same dataset in Excel format |
 | `README.md` | This guide |
 
 **Dataset columns:** `student_id`, `name`, `gender`, `program`, `district`, `attendance_pct`, `quiz_avg`, `assignments_avg`, `score` (the target).
 
-> The lab PDF mentions `week10_students.csv`. The file provided is an Excel file, so either:
-> - load it directly: `df = pd.read_excel("week10_students.xlsx")`, or
-> - open it in Excel/Sheets, **Save As → CSV**, name it `week10_students.csv`, and use `pd.read_csv(...)`.
->
-> Keep the data file next to your notebook.
+> Load it with `df = pd.read_csv("week10_students.csv")` and keep the file next to your notebook.
+> (If you prefer Excel, `pd.read_excel("week10_students.xlsx")` works too.)
 
 ---
 
