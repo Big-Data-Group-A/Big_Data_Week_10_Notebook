@@ -1,4 +1,4 @@
-student_id,name,gender,program,district,attendance_pct,quiz_avg,assignments_avg,score
+﻿student_id,name,gender,program,district,attendance_pct,quiz_avg,assignments_avg,score
 AUCA001,Aline Uwase,F,Information Systems,Gasabo,55,31,35,28.6
 AUCA002,Eric Iradukunda,M,Software Engineering,Musanze,73,61.1,76.7,64.5
 AUCA003,Diane Uwizeyimana,F,Networking,Muhanga,92,35.2,65.5,52.7
