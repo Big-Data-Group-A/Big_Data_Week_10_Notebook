@@ -1,164 +1,55 @@
-# Week 10 Lab — Machine Learning & Dashboards
+Week 10 Lab: Machine Learning & Dashboards
 
-**AUCA · Introduction to Big Data Analytics**
-Instructor: Prince Ishimwe · Prince.ishimwe@auca.ac.rw
-Total: 35 marks (+3 bonus) · Due: end of Week 10
+Course: INSY 8413 Introduction to Big Data Analytics, AUCA Instructor: Prince Ishimwe Student: Mucyo Gad
 
-Train · Evaluate · Predict · Publish
+About this project
 
----
+This project predicts a student's final score from their quiz average, assignments average and attendance. It also identifies students at risk of failing and shares the findings in a simple interactive dashboard.
 
-## 📁 What's in this repo
+What it does
+Explore and split: loads the data, checks correlations, and splits it into 112 training and 38 test students (test_size=0.25, random_state=42).
+Regression: a linear regression predicts the score.
+Classification: a logistic regression predicts pass or fail (score of 50 or more), and the confusion matrix is compared with a "predict pass for everyone" baseline.
+Feature engineering: compares three versions of the regression, including one-hot encoded program.
+Dashboard: three Plotly charts, with the at-risk scatter saved as class_dashboard.html.
+Bonus: a box plot of scores by program.
+Files
+File	Description
+Week10_Mucyo_Gad.ipynb	The completed notebook (code and outputs)
+week10_students.csv	The dataset: 150 students, 9 columns
+class_dashboard.html	The interactive "Who is at risk" scatter chart
+Week10_Lab_Outputs_Mucyo_Gad.pdf	Code and output for every part
+Week10_Lab_Report_Mucyo_Gad.pdf	Written lab report with the model card
+Dataset columns
 
-| File | Purpose |
-|------|---------|
-| `Lab 5.pdf` | The lab instructions (all exercises, marking scheme, checklist) |
-| `week10_students.csv` | The dataset: 150 clean students (use this one) |
-| `week10_students.xlsx` | Same dataset in Excel format |
-| `README.md` | This guide |
+student_id, name, gender, program, district, attendance_pct, quiz_avg, assignments_avg, score (the target).
 
-**Dataset columns:** `student_id`, `name`, `gender`, `program`, `district`, `attendance_pct`, `quiz_avg`, `assignments_avg`, `score` (the target).
+Requirements
+Python 3
+pandas
+numpy
+scikit-learn
+plotly
 
-> Load it with `df = pd.read_csv("week10_students.csv")` and keep the file next to your notebook.
-> (If you prefer Excel, `pd.read_excel("week10_students.xlsx")` works too.)
+Google Colab already has everything installed. On Anaconda, run pip install plotly if the import fails.
 
----
+How to run
+Open the notebook in Google Colab (File, then Upload notebook) or in Jupyter.
+Upload week10_students.csv next to the notebook (Colab: folder icon on the left, then the upload icon).
+Click Runtime, then Run all.
+class_dashboard.html is saved next to the notebook. Open it in a browser and hover over the points to see student names.
+Results
+Measure	Value
+Regression MAE (test set)	3.33 points
+Regression R² (test set)	0.89
+Classification accuracy	0.895 (same as the lazy baseline)
+Failing students correctly flagged	3 of 4
+R² with quiz only / three features / plus program	0.62 / 0.89 / 0.88
 
-## 🧪 What you need to do (summary)
+Quiz average is the strongest predictor (correlation 0.80 with score). One extra quiz point adds about 0.58 points to the predicted score.
 
-Read `Lab 5.pdf` for the full details. In short:
-
-| Part | Topic | Marks |
-|------|-------|-------|
-| 1 | Explore & split (`test_size=0.25, random_state=42` → 112 train / 38 test) | 5 |
-| 2 | Linear regression: coefficients, MAE/R² on the **test** set, predict new students | 10 |
-| 3 | Logistic regression: pass/fail, the accuracy trap and confusion matrix | 8 |
-| 4 | Feature engineering: compare R² of 3 models | 5 |
-| 5 | Plotly dashboard: 3 charts + save `class_dashboard.html` | 7 |
-| Bonus | Box plot by program + two sentences | +3 |
-| 6 | Model card (required, checked for completion) | — |
-
-Use `test_size=0.25, random_state=42` in **every** split so your numbers match the checkpoints.
-Colab has everything pre-installed. On Anaconda, run `pip install plotly` if the import fails.
-
----
-
-## 📦 What you must submit
-
-Put these four things in your submission folder:
-
-1. **Completed notebook**, named `Week10_YourName.ipynb`
-2. **`class_dashboard.html`** and a **screenshot of it open in your browser** (e.g. `dashboard_screenshot.png`)
-3. **Model card** (purpose, data & features, performance in plain language, risks), as `model_card.md` or inside the notebook
-4. **Screenshots** of your key outputs (e.g. checkpoints, confusion matrix)
-
-Your folder should look like this:
-
-```
-submissions/
-└── YourName/
-    ├── Week10_YourName.ipynb
-    ├── class_dashboard.html
-    ├── dashboard_screenshot.png
-    ├── model_card.md
-    └── screenshots/
-        ├── 01_split_sizes.png
-        └── ...
-```
-
----
-
-## 🚀 How to submit (branch only, NO Pull Request)
-
-You submit by **pushing your own branch** to this repository.
-**Do NOT open a Pull Request.** Do NOT push to `main`. Your branch *is* your submission.
-
-### Before you start
-
-- You need a GitHub account and [Git installed](https://git-scm.com/downloads).
-- You must have **write access** to this repo. If `git push` is rejected with a permission error (403), ask the instructor to add you as a collaborator.
-
-### Step 1: Clone the repository
-
-```bash
-git clone https://github.com/Big-Data-Group-A/Big_Data_Week_10_Notebook.git
-cd Big_Data_Week_10_Notebook
-```
-
-### Step 2: Create your own branch
-
-Name it `firstname-lastname` (lowercase, hyphens, no spaces). Example for Aline Uwase:
-
-```bash
-git checkout -b aline-uwase
-```
-
-### Step 3: Do the lab and add your files
-
-Create your folder and put your deliverables inside it:
-
-```bash
-mkdir -p submissions/AlineUwase
-# copy your notebook, class_dashboard.html, screenshots and model card into it
-```
-
-Only add files inside **your own** `submissions/YourName/` folder. Never edit other students' files or the lab files.
-
-### Step 4: Commit your work
-
-```bash
-git add submissions/AlineUwase
-git status                      # check that only your files are listed
-git commit -m "Week 10 submission - Aline Uwase"
-```
-
-### Step 5: Push your branch
-
-```bash
-git push -u origin aline-uwase
-```
-
-That's it, you're done. ✅
-Go to the repo on GitHub → the **branch dropdown** and confirm your branch and files appear.
-
-> 🛑 GitHub will show a yellow banner saying **"Compare & pull request"**. **Ignore it. Do not click it.**
-
-### Updating your submission (before the deadline)
-
-Made a fix? Commit and push again on the same branch:
-
-```bash
-git add submissions/AlineUwase
-git commit -m "Update Week 10 submission"
-git push
-```
-
----
-
-## ✅ Submission checklist
-
-- [ ] Notebook renamed `Week10_YourName`
-- [ ] Split sizes show 112 train / 38 test
-- [ ] Regression evaluated on the **TEST** set (MAE ≈ 3.3, R² ≈ 0.89)
-- [ ] Confusion-matrix argument written (comment, Exercise 3.2d)
-- [ ] Feature-engineering comparison done (≈ 0.62 → 0.89 → 0.88)
-- [ ] `class_dashboard.html` saved **+ screenshot** of it open in the browser
-- [ ] Model card written
-- [ ] Notebook is saved **with outputs visible** (run all cells before saving)
-- [ ] Branch pushed to GitHub; **no PR opened**
-- [ ] Submitted before the end of Week 10
-
----
-
-## 🛠️ Troubleshooting
-
-| Problem | Fix |
-|---------|-----|
-| `Permission denied` / `403` on push | You're not a collaborator yet. Ask the instructor for access. |
-| `git push` says "no upstream branch" | Use `git push -u origin your-branch-name` the first time. |
-| `Author identity unknown` on commit | Run `git config --global user.name "Your Name"` and `git config --global user.email "you@example.com"`. |
-| Pushed to `main` by mistake | Tell the instructor right away. Don't try to fix it with force-push. |
-| Large notebook/HTML refuses to push | Files must be under 100 MB. Compress screenshots if needed. |
-| Notebook built in Colab | **File → Download → Download .ipynb**, then add it to your folder. |
-
-Good luck! 🎓
+Model card (short)
+Purpose: predicts a student's final score to help lecturers offer early support.
+Performance: off by about 3 points on average on unseen students.
+Use it to: start a conversation and offer support early.
+Do not use it to: decide grades, pass/fail, scholarships or discipline. It sees only three numbers and was trained on 150 students from one course.
