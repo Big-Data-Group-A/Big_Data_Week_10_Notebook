@@ -1,164 +1,65 @@
-# Week 10 Lab — Machine Learning & Dashboards
+Week 10 Lab: Machine Learning & Dashboards
 
-**AUCA · Introduction to Big Data Analytics**
-Instructor: Prince Ishimwe · Prince.ishimwe@auca.ac.rw
-Total: 35 marks (+3 bonus) · Due: end of Week 10
+Course: Introduction to Big Data Analytics, AUCA Instructor: Prince Ishimwe Student: your name · ID: your student ID · Program: your program
 
-Train · Evaluate · Predict · Publish
+Overview
 
----
+This lab trains, evaluates and publishes machine learning models on a dataset of 150 AUCA students.
 
-## 📁 What's in this repo
+Regression: predict a student's final score from quiz average, assignment average and attendance.
+Classification: flag at-risk students (score below 50) with logistic regression.
+Feature engineering: compare three versions of the regression model.
+Dashboard: share the results as interactive Plotly charts.
+Files
+File	Description
+Week10_YourName.ipynb	Completed notebook with all exercises, comments and the model card
+week10_students.csv	Dataset: 150 students, 9 columns (converted from the provided .xlsx)
+class_dashboard.html	Interactive "2. Who is at risk" scatter plot (open in a browser)
+dashboard_screenshot.png	Screenshot of the dashboard open in a browser
+model_card.md	Model card for the regression model
+README.md	This file
+Dataset
 
-| File | Purpose |
-|------|---------|
-| `Lab 5.pdf` | The lab instructions (all exercises, marking scheme, checklist) |
-| `week10_students.csv` | The dataset: 150 clean students (use this one) |
-| `week10_students.xlsx` | Same dataset in Excel format |
-| `README.md` | This guide |
+week10_students.csv has these columns: student_id, name, gender, program, district, attendance_pct, quiz_avg, assignments_avg, score (the target).
 
-**Dataset columns:** `student_id`, `name`, `gender`, `program`, `district`, `attendance_pct`, `quiz_avg`, `assignments_avg`, `score` (the target).
+If you only have the Excel file, convert it first:
 
-> Load it with `df = pd.read_csv("week10_students.csv")` and keep the file next to your notebook.
-> (If you prefer Excel, `pd.read_excel("week10_students.xlsx")` works too.)
+python
+import pandas as pd
+pd.read_excel("week10_students.xlsx").to_csv("week10_students.csv", index=False)
+How to run
+Put Week10_YourName.ipynb and week10_students.csv in the same folder.
+Install the libraries if needed: pip install pandas scikit-learn plotly (Colab has them already).
+Open the notebook and choose Run all.
+The notebook writes class_dashboard.html to the same folder. Open it in a browser.
 
----
+All splits use test_size=0.25, random_state=42, giving 112 training and 38 test students.
 
-## 🧪 What you need to do (summary)
+Results
+Part	Result
+1. Explore	Correlation with score: quiz 0.80, assignments 0.54, attendance 0.24
+2. Regression	Test MAE = 3.33 points, R² = 0.887. One extra quiz point ≈ +0.58 exam points
+2.3 New student	Quiz 70, assignments 75, attendance 90 → predicted score 73.7
+3. Classification	131 pass / 19 fail. Accuracy 0.895 equals the lazy baseline 0.895, but the model catches 3 of the 4 failing students (baseline catches 0). Confusion matrix [[3,1],[3,31]]
+4. Feature engineering	Test R²: quiz only 0.624 → three features 0.887 → three + program 0.880
+5. Dashboard	Three charts (class scores, at-risk scatter, district averages); the scatter is saved as HTML
+Bonus	Networking is the most consistent program; Software Engineering has the widest spread
+Key takeaways
+Always evaluate on data the model has not seen (the test set).
+Accuracy can mislead when classes are imbalanced. Use the confusion matrix, recall and precision.
+More features help only when they carry new, relevant information.
+Predictions support human decisions, such as early help for students. They must not decide grades or opportunities on their own.
+Model card
 
-Read `Lab 5.pdf` for the full details. In short:
+See model_card.md (also the last cell of the notebook): purpose, data and features, performance on unseen data, and risks.
 
-| Part | Topic | Marks |
-|------|-------|-------|
-| 1 | Explore & split (`test_size=0.25, random_state=42` → 112 train / 38 test) | 5 |
-| 2 | Linear regression: coefficients, MAE/R² on the **test** set, predict new students | 10 |
-| 3 | Logistic regression: pass/fail, the accuracy trap and confusion matrix | 8 |
-| 4 | Feature engineering: compare R² of 3 models | 5 |
-| 5 | Plotly dashboard: 3 charts + save `class_dashboard.html` | 7 |
-| Bonus | Box plot by program + two sentences | +3 |
-| 6 | Model card (required, checked for completion) | — |
+Submission checklist
+ Notebook renamed Week10_YourName with your own name
+ Regression evaluated on the test set
+ Confusion-matrix argument written
+ class_dashboard.html saved, plus a screenshot
+ Model card written
+ Submitted before the end of Week 10
+Tools
 
-Use `test_size=0.25, random_state=42` in **every** split so your numbers match the checkpoints.
-Colab has everything pre-installed. On Anaconda, run `pip install plotly` if the import fails.
-
----
-
-## 📦 What you must submit
-
-Put these four things in your submission folder:
-
-1. **Completed notebook**, named `Week10_YourName.ipynb`
-2. **`class_dashboard.html`** and a **screenshot of it open in your browser** (e.g. `dashboard_screenshot.png`)
-3. **Model card** (purpose, data & features, performance in plain language, risks), as `model_card.md` or inside the notebook
-4. **Screenshots** of your key outputs (e.g. checkpoints, confusion matrix)
-
-Your folder should look like this:
-
-```
-submissions/
-└── YourName/
-    ├── Week10_YourName.ipynb
-    ├── class_dashboard.html
-    ├── dashboard_screenshot.png
-    ├── model_card.md
-    └── screenshots/
-        ├── 01_split_sizes.png
-        └── ...
-```
-
----
-
-## 🚀 How to submit (branch only, NO Pull Request)
-
-You submit by **pushing your own branch** to this repository.
-**Do NOT open a Pull Request.** Do NOT push to `main`. Your branch *is* your submission.
-
-### Before you start
-
-- You need a GitHub account and [Git installed](https://git-scm.com/downloads).
-- You must have **write access** to this repo. If `git push` is rejected with a permission error (403), ask the instructor to add you as a collaborator.
-
-### Step 1: Clone the repository
-
-```bash
-git clone https://github.com/Big-Data-Group-A/Big_Data_Week_10_Notebook.git
-cd Big_Data_Week_10_Notebook
-```
-
-### Step 2: Create your own branch
-
-Name it `firstname-lastname` (lowercase, hyphens, no spaces). Example for Aline Uwase:
-
-```bash
-git checkout -b aline-uwase
-```
-
-### Step 3: Do the lab and add your files
-
-Create your folder and put your deliverables inside it:
-
-```bash
-mkdir -p submissions/AlineUwase
-# copy your notebook, class_dashboard.html, screenshots and model card into it
-```
-
-Only add files inside **your own** `submissions/YourName/` folder. Never edit other students' files or the lab files.
-
-### Step 4: Commit your work
-
-```bash
-git add submissions/AlineUwase
-git status                      # check that only your files are listed
-git commit -m "Week 10 submission - Aline Uwase"
-```
-
-### Step 5: Push your branch
-
-```bash
-git push -u origin aline-uwase
-```
-
-That's it, you're done. ✅
-Go to the repo on GitHub → the **branch dropdown** and confirm your branch and files appear.
-
-> 🛑 GitHub will show a yellow banner saying **"Compare & pull request"**. **Ignore it. Do not click it.**
-
-### Updating your submission (before the deadline)
-
-Made a fix? Commit and push again on the same branch:
-
-```bash
-git add submissions/AlineUwase
-git commit -m "Update Week 10 submission"
-git push
-```
-
----
-
-## ✅ Submission checklist
-
-- [ ] Notebook renamed `Week10_YourName`
-- [ ] Split sizes show 112 train / 38 test
-- [ ] Regression evaluated on the **TEST** set (MAE ≈ 3.3, R² ≈ 0.89)
-- [ ] Confusion-matrix argument written (comment, Exercise 3.2d)
-- [ ] Feature-engineering comparison done (≈ 0.62 → 0.89 → 0.88)
-- [ ] `class_dashboard.html` saved **+ screenshot** of it open in the browser
-- [ ] Model card written
-- [ ] Notebook is saved **with outputs visible** (run all cells before saving)
-- [ ] Branch pushed to GitHub; **no PR opened**
-- [ ] Submitted before the end of Week 10
-
----
-
-## 🛠️ Troubleshooting
-
-| Problem | Fix |
-|---------|-----|
-| `Permission denied` / `403` on push | You're not a collaborator yet. Ask the instructor for access. |
-| `git push` says "no upstream branch" | Use `git push -u origin your-branch-name` the first time. |
-| `Author identity unknown` on commit | Run `git config --global user.name "Your Name"` and `git config --global user.email "you@example.com"`. |
-| Pushed to `main` by mistake | Tell the instructor right away. Don't try to fix it with force-push. |
-| Large notebook/HTML refuses to push | Files must be under 100 MB. Compress screenshots if needed. |
-| Notebook built in Colab | **File → Download → Download .ipynb**, then add it to your folder. |
-
-Good luck! 🎓
+Python · pandas · scikit-learn (train_test_split, LinearRegression, LogisticRegression) · Plotly Express · Jupyter
