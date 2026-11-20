@@ -1,8 +1,13 @@
 
 # Week 10 Lab: Machine Learning & Dashboards
 
+
 **Course:** Introduction to Big Data Analytics, AUCA
+
+
 **Instructor:** Prince ISHIMWE
+
+
 **Student:** Olivier IREMBERE  | **ID:** 28392 | 
 
 ## About this project
