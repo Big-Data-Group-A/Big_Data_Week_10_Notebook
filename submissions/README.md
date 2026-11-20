@@ -142,7 +142,7 @@ I built three Plotly charts that tell one story.
 
 **Result:** **Networking** is the most consistent (smallest spread). **Software Engineering** has the widest spread.
 
-![Bonus box plot](submissions/screenshots/Bonus.png)
+![Bonus box plot](screenshots/Bonus.png)
 
 ---
 
