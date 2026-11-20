@@ -33,14 +33,14 @@ The full code is in the submitted notebook, `Week10_YourName.ipynb`. This README
 
 **Result:** The data has 150 rows and 9 columns. Correlation with score: `quiz_avg` 0.80, `assignments_avg` 0.54, `attendance_pct` 0.24. **`quiz_avg` is the most useful feature.**
 
-![Exercise 1.1](submissions/screenshots/Exercise1.1.png)
+![Exercise 1.1](screenshots/Exercise1.1.png)
 
 ### Exercise 1.2: Frame & split
 **What I did:** Set the three features as X and `score` as y, then split into 75% train and 25% test.
 
 **Result:** **112 train / 38 test** (matches the checkpoint). 25% of students are hidden so the model can be tested on students it has never seen. Testing on the data it learned from would only measure memorisation.
 
-![Exercise 1.2](submissions/screenshots/Exercise1.2.png)
+![Exercise 1.2](screenshots/Exercise1.2.png)
 
 ---
 
@@ -51,7 +51,7 @@ The full code is in the submitted notebook, `Week10_YourName.ipynb`. This README
 
 **Result:** `score ≈ 0.58 × quiz + 0.37 × assignments + 0.11 × attendance − 4.4`. **One extra quiz point is worth about 0.58 exam points.**
 
-![Exercise 2.1](submissions/screenshots/Exercise2.1.png)
+![Exercise 2.1](screenshots/Exercise2.1.png)
 
 ### Exercise 2.2: Judge it honestly
 **What I did:** Predicted on the test set and measured MAE and R².
@@ -60,14 +60,14 @@ The full code is in the submitted notebook, `Week10_YourName.ipynb`. This README
 - **MAE:** predictions are typically off by about 3 points.
 - **R²:** the model explains about 89% of the differences between students' scores.
 
-![Exercise 2.2](submissions/screenshots/Exercise2.2.png)
+![Exercise 2.2](screenshots/Exercise2.2.png)
 
 ### Exercise 2.3: Predict a new student
 **What I did:** Predicted the score of a new student (quiz 70, assignments 75, attendance 90), then my own with invented numbers (60, 65, 85).
 
 **Result:** New student: **73.7**. Me: **63.7**.
 
-![Exercise 2.3](submissions/screenshots/Exercise2.3.png)
+![Exercise 2.3](screenshots/Exercise2.3.png)
 
 ---
 
@@ -78,7 +78,7 @@ The full code is in the submitted notebook, `Week10_YourName.ipynb`. This README
 
 **Result:** **131 passed, 19 failed.** The classes are imbalanced.
 
-![Exercise 3.1](submissions/screenshots/Exercise3.1.png)
+![Exercise 3.1](screenshots/Exercise3.1.png)
 
 ### Exercise 3.2: The accuracy trap
 **What I did:** Compared the model's accuracy with a lazy baseline that predicts "pass" for everyone, and printed the confusion matrix.
@@ -92,7 +92,7 @@ The full code is in the submitted notebook, `Week10_YourName.ipynb`. This README
 
 **Is the model useless? No.** Both score 89.5% only because about 90% of students pass. The lazy model catches **0 of the 4** failing students, while our model catches **3 of 4**, which is the job an early-warning system exists to do. Accuracy hides this, so the confusion matrix must always be read.
 
-![Exercise 3.2](submissions/screenshots/Exercise3.2.png)
+![Exercise 3.2](screenshots/Exercise3.2.png)
 
 ---
 
@@ -111,7 +111,7 @@ The full code is in the submitted notebook, `Week10_YourName.ipynb`. This README
 **What didn't:** adding program (0.89 to 0.88), because it tells the model almost nothing beyond the marks.
 **Lesson:** more data only helps if it is new, relevant information, so test each addition on unseen data.
 
-![Exercise 4.1](submissions/screenshots/Exercise4.1.png)
+![Exercise 4.1](screenshots/Exercise4.1.png)
 
 ---
 
@@ -121,18 +121,18 @@ The full code is in the submitted notebook, `Week10_YourName.ipynb`. This README
 I built three Plotly charts that tell one story.
 
 **Chart 1: "1. Where the class stands" (context).** Histogram of scores, 12 bins.
-![Chart 1](submissions/screenshots/Exercise5.1.png)
+![Chart 1](screenshots/Exercise5.1.png)
 
 **Chart 2: "2. Who is at risk" (insight).** Scatter of quiz average vs score, coloured by pass/fail, with student names on hover.
-![Chart 2](submissions/screenshots/Exercise5.1.1.png)
+![Chart 2](screenshots/Exercise5.1.1.png)
 
 **Chart 3: "3. Where to act" (action).** Bar chart of average score per district.
-![Chart 3](submissions/screenshots/Exercise5.1.2.png)
+![Chart 3](screenshots/Exercise5.1.2.png)
 
 ### Exercise 5.2: Publish it
 **What I did:** Saved the at-risk scatter as an interactive web page, [`class_dashboard.html`](class_dashboard.html), and opened it in a browser to hover over the points.
 
-![Dashboard in browser](submissions/screenshots/class_dashboard.png)
+![Dashboard in browser](screenshots/class_dashboard.png)
 
 ---
 
