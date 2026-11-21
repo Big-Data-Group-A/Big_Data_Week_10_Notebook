@@ -1,164 +1,139 @@
-# Week 10 Lab — Machine Learning & Dashboards
+# Week 10 Lab: Machine Learning & Dashboards
 
-**AUCA · Introduction to Big Data Analytics**
-Instructor: Prince Ishimwe · Prince.ishimwe@auca.ac.rw
-Total: 35 marks (+3 bonus) · Due: end of Week 10
+**Course:** Introduction to Big Data Analytics, AUCA
+**Instructor:** Prince Ishimwe
+**student:**  Ishimwe muhire johnson
 
-Train · Evaluate · Predict · Publish
+This project trains two machine learning models on a dataset of 150 students. It then publishes an interactive chart.
 
----
-
-## 📁 What's in this repo
-
-| File | Purpose |
-|------|---------|
-| `Lab 5.pdf` | The lab instructions (all exercises, marking scheme, checklist) |
-| `week10_students.csv` | The dataset: 150 clean students (use this one) |
-| `week10_students.xlsx` | Same dataset in Excel format |
-| `README.md` | This guide |
-
-**Dataset columns:** `student_id`, `name`, `gender`, `program`, `district`, `attendance_pct`, `quiz_avg`, `assignments_avg`, `score` (the target).
-
-> Load it with `df = pd.read_csv("week10_students.csv")` and keep the file next to your notebook.
-> (If you prefer Excel, `pd.read_excel("week10_students.xlsx")` works too.)
+- A **regression** model predicts a student's final score.
+- A **classification** model flags students who are at risk of failing.
 
 ---
 
-## 🧪 What you need to do (summary)
+## Files
 
-Read `Lab 5.pdf` for the full details. In short:
-
-| Part | Topic | Marks |
-|------|-------|-------|
-| 1 | Explore & split (`test_size=0.25, random_state=42` → 112 train / 38 test) | 5 |
-| 2 | Linear regression: coefficients, MAE/R² on the **test** set, predict new students | 10 |
-| 3 | Logistic regression: pass/fail, the accuracy trap and confusion matrix | 8 |
-| 4 | Feature engineering: compare R² of 3 models | 5 |
-| 5 | Plotly dashboard: 3 charts + save `class_dashboard.html` | 7 |
-| Bonus | Box plot by program + two sentences | +3 |
-| 6 | Model card (required, checked for completion) | — |
-
-Use `test_size=0.25, random_state=42` in **every** split so your numbers match the checkpoints.
-Colab has everything pre-installed. On Anaconda, run `pip install plotly` if the import fails.
+| File | What it is |
+|---|---|
+| `week10_students.xlsx` | Original data (Excel) |
+| `week10_students.csv` | Same data converted to CSV |
+| `Week10_ishimwe_muhire_johnson_20252SEN147.ipynb` | The notebook with all the code, answers and model card |
+| `class_dashboard.html` | Interactive "Who is at risk" chart (open in a browser) |
+| `README.md` | This file |
 
 ---
 
-## 📦 What you must submit
+## The dataset
 
-Put these four things in your submission folder:
+150 students, no missing values.
 
-1. **Completed notebook**, named `Week10_YourName.ipynb`
-2. **`class_dashboard.html`** and a **screenshot of it open in your browser** (e.g. `dashboard_screenshot.png`)
-3. **Model card** (purpose, data & features, performance in plain language, risks), as `model_card.md` or inside the notebook
-4. **Screenshots** of your key outputs (e.g. checkpoints, confusion matrix)
-
-Your folder should look like this:
-
-```
-submissions/
-└── YourName/
-    ├── Week10_YourName.ipynb
-    ├── class_dashboard.html
-    ├── dashboard_screenshot.png
-    ├── model_card.md
-    └── screenshots/
-        ├── 01_split_sizes.png
-        └── ...
-```
+| Column | Meaning |
+|---|---|
+| `student_id` | Unique ID, e.g. AUCA001 |
+| `name` | Student name |
+| `gender` | F or M |
+| `program` | Information Systems, Software Engineering, Networking or Accounting |
+| `district` | Home district |
+| `attendance_pct` | Attendance percentage |
+| `quiz_avg` | Average quiz mark |
+| `assignments_avg` | Average assignment mark |
+| `score` | Final score (**the target we predict**) |
 
 ---
 
-## 🚀 How to submit (branch only, NO Pull Request)
+## How to run
 
-You submit by **pushing your own branch** to this repository.
-**Do NOT open a Pull Request.** Do NOT push to `main`. Your branch *is* your submission.
+### Option A: Google Colab (easiest)
+1. Go to [colab.research.google.com](https://colab.research.google.com) and upload `Week10_YourName.ipynb`.
+2. Upload `week10_students.xlsx` (and the CSV) using the folder icon on the left.
+3. Click **Runtime → Run all**.
 
-### Before you start
+Everything you need is already installed in Colab.
 
-- You need a GitHub account and [Git installed](https://git-scm.com/downloads).
-- You must have **write access** to this repo. If `git push` is rejected with a permission error (403), ask the instructor to add you as a collaborator.
+### Option B: Anaconda / Jupyter on your computer
+1. Put the notebook and the data files in the same folder.
+2. Install the libraries if needed:
+   ```
+   pip install pandas scikit-learn plotly openpyxl
+   ```
+3. Open the notebook in Jupyter and choose **Kernel → Restart & Run All**.
 
-### Step 1: Clone the repository
-
-```bash
-git clone https://github.com/Big-Data-Group-A/Big_Data_Week_10_Notebook.git
-cd Big_Data_Week_10_Notebook
-```
-
-### Step 2: Create your own branch
-
-Name it `firstname-lastname` (lowercase, hyphens, no spaces). Example for Aline Uwase:
-
-```bash
-git checkout -b aline-uwase
-```
-
-### Step 3: Do the lab and add your files
-
-Create your folder and put your deliverables inside it:
-
-```bash
-mkdir -p submissions/AlineUwase
-# copy your notebook, class_dashboard.html, screenshots and model card into it
-```
-
-Only add files inside **your own** `submissions/YourName/` folder. Never edit other students' files or the lab files.
-
-### Step 4: Commit your work
-
-```bash
-git add submissions/AlineUwase
-git status                      # check that only your files are listed
-git commit -m "Week 10 submission - Aline Uwase"
-```
-
-### Step 5: Push your branch
-
-```bash
-git push -u origin aline-uwase
-```
-
-That's it, you're done. ✅
-Go to the repo on GitHub → the **branch dropdown** and confirm your branch and files appear.
-
-> 🛑 GitHub will show a yellow banner saying **"Compare & pull request"**. **Ignore it. Do not click it.**
-
-### Updating your submission (before the deadline)
-
-Made a fix? Commit and push again on the same branch:
-
-```bash
-git add submissions/AlineUwase
-git commit -m "Update Week 10 submission"
-git push
-```
+The first code cell reads the Excel file and saves it as `week10_students.csv`. Keep `week10_students.xlsx` next to the notebook so that cell works.
 
 ---
 
-## ✅ Submission checklist
+## What the notebook does
 
-- [ ] Notebook renamed `Week10_YourName`
-- [ ] Split sizes show 112 train / 38 test
-- [ ] Regression evaluated on the **TEST** set (MAE ≈ 3.3, R² ≈ 0.89)
-- [ ] Confusion-matrix argument written (comment, Exercise 3.2d)
-- [ ] Feature-engineering comparison done (≈ 0.62 → 0.89 → 0.88)
-- [ ] `class_dashboard.html` saved **+ screenshot** of it open in the browser
-- [ ] Model card written
-- [ ] Notebook is saved **with outputs visible** (run all cells before saving)
-- [ ] Branch pushed to GitHub; **no PR opened**
-- [ ] Submitted before the end of Week 10
+| Part | Task | Marks |
+|---|---|---|
+| 1 | Explore the data, check correlations, split into train/test | 5 |
+| 2 | Linear regression: train, evaluate, predict a new student | 10 |
+| 3 | Logistic regression: pass/fail model and the accuracy trap | 8 |
+| 4 | Feature engineering: does more information help? | 5 |
+| 5 | Three Plotly charts and the saved dashboard | 7 |
+| Bonus | Box plot of scores by program | +3 |
+| 6 | Model card (required) | checked for completion |
+
+Every split uses `test_size=0.25, random_state=42`, so your numbers match the checkpoints.
 
 ---
 
-## 🛠️ Troubleshooting
+## Results
+
+| Check | Result |
+|---|---|
+| Data shape | 150 rows × 9 columns |
+| Train / test sizes | 112 / 38 |
+| Strongest feature | `quiz_avg` (correlation 0.80) |
+| Regression MAE | about 3.33 points |
+| Regression R² | about 0.89 |
+| Pass / fail counts | 131 passed, 19 failed |
+| Classifier accuracy | 0.895 |
+| Lazy baseline ("everyone passes") | 0.895 |
+| Confusion matrix | `[[3, 1], [3, 31]]` |
+| R² by feature set | 0.62 (quiz only) → 0.89 (three features) → 0.88 (+ program) |
+
+**Key lessons**
+- Accuracy alone can mislead when most students pass. The confusion matrix shows our model still catches 3 of the 4 failing students, while the lazy model catches none.
+- Adding more features only helps when they carry new information.
+
+---
+
+## Key terms
+
+| Term | Plain meaning |
+|---|---|
+| **Feature (X)** | The clues used to predict (quiz, assignments, attendance) |
+| **Target (y)** | The answer we want to predict (score) |
+| **Train / test split** | Practise on 75% of students, then get graded on the 25% the model has never seen |
+| **MAE** | Average size of the model's mistakes, in score points |
+| **R²** | How much of the differences between students the model explains (0 to 1) |
+| **Confusion matrix** | A table of right and wrong predictions for each class |
+| **One-hot encoding** | Turning text categories into 0/1 columns with `pd.get_dummies` |
+
+---
+
+## Model card (summary)
+
+- **Purpose:** predicts a student's final score from quiz, assignments and attendance, to help lecturers spot students who need support early.
+- **Performance:** typically about 3 marks off; explains about 89% of score differences on unseen students.
+- **Risks:** a wrong prediction could wrongly label a student or miss one who needs help. The model is trained on only 150 students.
+- **Use for:** an early-warning signal that starts a human conversation.
+- **Do NOT use for:** final grades, pass/fail decisions, discipline or scholarships.
+
+The full model card is at the end of the notebook.
+
+---
+
+## Troubleshooting
 
 | Problem | Fix |
-|---------|-----|
-| `Permission denied` / `403` on push | You're not a collaborator yet. Ask the instructor for access. |
-| `git push` says "no upstream branch" | Use `git push -u origin your-branch-name` the first time. |
-| `Author identity unknown` on commit | Run `git config --global user.name "Your Name"` and `git config --global user.email "you@example.com"`. |
-| Pushed to `main` by mistake | Tell the instructor right away. Don't try to fix it with force-push. |
-| Large notebook/HTML refuses to push | Files must be under 100 MB. Compress screenshots if needed. |
-| Notebook built in Colab | **File → Download → Download .ipynb**, then add it to your folder. |
+|---|---|
+| `ModuleNotFoundError: plotly` | Run `pip install plotly` |
+| `FileNotFoundError: week10_students.xlsx` | Put the Excel file in the same folder as the notebook |
+| Excel reading error | Run `pip install openpyxl` |
+| Different numbers from the checkpoints | Check you used `test_size=0.25, random_state=42` in every split |
+| `class_dashboard.html` looks empty | Open it in Chrome, Edge or Firefox, not inside a text editor |
 
-Good luck! 🎓
+---
+
